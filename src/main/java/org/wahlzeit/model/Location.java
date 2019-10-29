@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+
 public class Location {
 
     private Coordinate coordinate;
@@ -13,6 +14,10 @@ public class Location {
     }
 
     public void setCoordinate(Coordinate coordinate) {
+        if (coordinate == null) {
+            throw new IllegalArgumentException("Nicht zulässig, da eine Location immer genau 1 " +
+                    "Coordinate nach dem UML Diagramm hat");
+        }
         this.coordinate = coordinate;
     }
 }

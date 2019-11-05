@@ -133,7 +133,7 @@ public class Photo extends DataObject {
     /**
      * A Photo may have a location
      */
-    private Location location;
+    protected Location location;
 
     /**
 	 *

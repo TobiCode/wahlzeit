@@ -16,6 +16,7 @@ import org.wahlzeit.utils.VersionTest;
 @Suite.SuiteClasses({TellFriendTest.class,  DatastoreAdapterTest.class, AccessRightsTest.class,
         CoordinateDeprecatedTest.class, FlagReasonTest.class, GenderTest.class, GuestTest.class, PhotoFilterTest.class,
 TagsTest.class, UserStatusTest.class, ValueTest.class, EmailServiceTest.class, EmailAddressTest.class,
-        LogBuilderTest.class, StringUtilTest.class, VersionTest.class})
+        LogBuilderTest.class, StringUtilTest.class, VersionTest.class, SphericCoordinateTest.class,
+        CartesianCoordinateTest.class})
 public class AllTests {
 }

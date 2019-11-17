@@ -32,7 +32,9 @@ public class SphericCoordinate implements  Coordinate {
         boolean isRadiusEqual = compareDoubles(this.radius, other.asSphericCoordinate().getRadius());
         boolean isPhiEqual = compareDoubles(this.phi, other.asSphericCoordinate().getPhi());
         boolean isThetaEqual = compareDoubles(this.theta, other.asSphericCoordinate().getTheta());
-
+        if(isRadiusEqual && this.radius == 0){
+            return true;
+        }
         return isRadiusEqual && isPhiEqual && isThetaEqual;
     }
 

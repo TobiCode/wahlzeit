@@ -18,6 +18,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     public double getCartesianDistance(Coordinate coordinate) throws Exception {
         CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
+        coordinate.asCartesianCoordinate().assertClassInvariants();
+        cartesianCoordinate.assertClassInvariants();
         //direct Cartesian distance
         double distance = Math.sqrt(Math.pow(coordinate.asCartesianCoordinate().getX() - cartesianCoordinate.getX(), 2)
                 + Math.pow(coordinate.asCartesianCoordinate().getY() - cartesianCoordinate.getY(), 2)
@@ -30,6 +32,8 @@ public abstract class AbstractCoordinate implements Coordinate {
     public double getCentralAngle(Coordinate coordinate) throws Exception {
         SphericCoordinate sphericCoordinate = this.asSphericCoordinate();
         SphericCoordinate otherSpheric = coordinate.asSphericCoordinate();
+        sphericCoordinate.assertClassInvariants();
+        otherSpheric.assertClassInvariants();
         double zeta = Math.toDegrees(Math.acos((Math.sin(Math.toRadians(sphericCoordinate.getPhi())) *
                 Math.sin(Math.toRadians(otherSpheric.getPhi())) + Math.cos(Math.toRadians(sphericCoordinate.getPhi())) *
                 Math.cos(Math.toRadians(otherSpheric.getPhi())) *

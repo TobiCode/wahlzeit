@@ -4,16 +4,19 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     protected static final double PRECISION = 0.0001;
 
-    protected boolean compareDoubles(double firstDouble, double secondDouble) {
+    protected static boolean compareDoubles(double firstDouble, double secondDouble) {
+        //Precondition
         if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
-            return false;
+            throw new IllegalArgumentException("Double value should not be NaN!");
         }
         return Math.abs(firstDouble - secondDouble) < PRECISION;
     }
 
-    public abstract CartesianCoordinate asCartesianCoordinate();
+    protected abstract void assertClassInvariants() throws Exception;
 
-    public double getCartesianDistance(Coordinate coordinate) {
+    public abstract CartesianCoordinate asCartesianCoordinate() throws Exception;
+
+    public double getCartesianDistance(Coordinate coordinate) throws Exception {
         CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
         //direct Cartesian distance
         double distance = Math.sqrt(Math.pow(coordinate.asCartesianCoordinate().getX() - cartesianCoordinate.getX(), 2)
@@ -22,9 +25,9 @@ public abstract class AbstractCoordinate implements Coordinate {
         return distance;
     }
 
-    public abstract SphericCoordinate asSphericCoordinate();
+    public abstract SphericCoordinate asSphericCoordinate() throws Exception;
 
-    public double getCentralAngle(Coordinate coordinate) {
+    public double getCentralAngle(Coordinate coordinate) throws Exception {
         SphericCoordinate sphericCoordinate = this.asSphericCoordinate();
         SphericCoordinate otherSpheric = coordinate.asSphericCoordinate();
         double zeta = Math.toDegrees(Math.acos((Math.sin(Math.toRadians(sphericCoordinate.getPhi())) *
@@ -37,10 +40,14 @@ public abstract class AbstractCoordinate implements Coordinate {
     @Override
     public boolean equals(Object otherCoordinate) {
         if (otherCoordinate instanceof Coordinate) {
-            return isEqual((Coordinate) otherCoordinate);
+            try {
+                return isEqual((Coordinate) otherCoordinate);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
 
-    public abstract boolean isEqual(Coordinate other);
+    public abstract boolean isEqual(Coordinate other) throws Exception;
 }

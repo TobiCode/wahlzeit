@@ -20,8 +20,9 @@ public class FoodPhotoManager extends PhotoManager {
 
     @Override
     public Photo getPhotoFromId(PhotoId id) {
+        //Precondition
         if (id == null) {
-            return null;
+            throw  new IllegalArgumentException("Argument id should not be null");
         }
 
         Photo result = doGetPhotoFromId(id);

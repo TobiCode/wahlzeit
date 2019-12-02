@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Exceptions.CoordinateException;
+
 import java.util.Objects;
 
 public class CartesianCoordinate extends AbstractCoordinate {
@@ -8,7 +10,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private final double y;
     private final double z;
 
-    public CartesianCoordinate(double x, double y, double z) throws Exception {
+    public CartesianCoordinate(double x, double y, double z) throws CoordinateException {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -36,14 +38,22 @@ public class CartesianCoordinate extends AbstractCoordinate {
     }
 
     @Override
+    public String toString() {
+        return new StringBuilder().append("CartesianCoordinate with: \n")
+                .append("X: " + this.x + "\n")
+                .append("Y: " + this.y + "\n")
+                .append("Z: " + this.z).toString();
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(x, y, z);
     }
 
     @Override
-    protected void assertClassInvariants() throws Exception {
+    protected void assertClassInvariants() throws CoordinateException {
         if(Double.isNaN(x) || Double.isNaN(y) || Double.isNaN(z)){
-            throw new Exception("Class invariant not met.");
+            throw new CoordinateException("Values of Coordinate should not be NaN", this);
         }
     }
 
@@ -53,7 +63,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     }
 
     @Override
-    public SphericCoordinate asSphericCoordinate() throws Exception {
+    public SphericCoordinate asSphericCoordinate() throws CoordinateException {
         this.assertClassInvariants();
         double radius = Math.sqrt(x * x + y * y + z * z);
         double theta = Math.acos(z / radius);

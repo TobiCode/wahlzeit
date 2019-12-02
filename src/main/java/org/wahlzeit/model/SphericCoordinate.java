@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Exceptions.CoordinateException;
+
 import java.util.Objects;
 
 public class SphericCoordinate extends AbstractCoordinate {
@@ -8,7 +10,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     private final double theta;
     private final double radius;
 
-    public SphericCoordinate(double phi, double theta, double radius) throws Exception {
+    public SphericCoordinate(double phi, double theta, double radius) throws CoordinateException {
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
@@ -27,7 +29,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         return radius;
     }
 
-    public boolean isEqual(Coordinate other) throws Exception {
+    public boolean isEqual(Coordinate other) throws CoordinateException {
         other.asSphericCoordinate().assertClassInvariants();
         boolean isRadiusEqual = compareDoubles(this.radius, other.asSphericCoordinate().getRadius());
         boolean isPhiEqual = compareDoubles(this.phi, other.asSphericCoordinate().getPhi());
@@ -39,21 +41,30 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     @Override
+    public String toString() {
+        return new StringBuilder().append("Spheric Coordinate with: \n")
+                .append("Phi: " + this.phi + "\n")
+                .append("Theta: " + this.theta + "\n")
+                .append("Radius: " + this.radius).toString();
+    }
+
+
+    @Override
     public int hashCode() {
         return Objects.hash(radius, phi, theta);
     }
 
     @Override
-    protected void assertClassInvariants() throws Exception {
+    protected void assertClassInvariants() throws CoordinateException {
         if (radius < 0) {
-            throw new Exception("Class invariant not met.");
+            throw new CoordinateException("Radius should not be smaller than 0", this);
         }
         if (Double.isNaN(radius) || Double.isNaN(theta) || Double.isNaN(radius)) {
-            throw new Exception("Class invariant not met.");
+            throw new CoordinateException("Values of Coordinate should not be NaN", this);
         }
     }
 
-    public CartesianCoordinate asCartesianCoordinate() throws Exception {
+    public CartesianCoordinate asCartesianCoordinate() throws CoordinateException {
         this.assertClassInvariants();
         double x = radius * Math.sin(Math.toRadians(theta)) * Math.cos(Math.toRadians(phi));
         double y = radius * Math.sin(Math.toRadians(theta)) * Math.sin(Math.toRadians(phi));

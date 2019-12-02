@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Exceptions.CoordinateException;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;
@@ -50,6 +51,15 @@ public class FoodPhotoFactory extends PhotoFactory {
     @Override
     public FoodPhoto createPhoto() {
         return new FoodPhoto();
+    }
+
+    public FoodPhoto createPhoto(double x, double y, double z) throws CoordinateException {
+        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, z);
+        FoodPhoto foodPhoto = new FoodPhoto();
+        Location location = new Location(cartesianCoordinate);
+        location.setCoordinate(cartesianCoordinate);
+        foodPhoto.setLocation(location);
+        return foodPhoto;
     }
 
     /**

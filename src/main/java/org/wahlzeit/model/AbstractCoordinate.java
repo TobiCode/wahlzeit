@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.Exceptions.CoordinateException;
+
 public abstract class AbstractCoordinate implements Coordinate {
 
     protected static final double PRECISION = 0.0001;
@@ -7,16 +9,16 @@ public abstract class AbstractCoordinate implements Coordinate {
     protected static boolean compareDoubles(double firstDouble, double secondDouble) {
         //Precondition
         if (Double.isNaN(firstDouble) || Double.isNaN(secondDouble)) {
-            throw new IllegalArgumentException("Double value should not be NaN!");
+            throw new ArithmeticException("Double value should not be NaN if it is compared to another double!");
         }
         return Math.abs(firstDouble - secondDouble) < PRECISION;
     }
 
-    protected abstract void assertClassInvariants() throws Exception;
+    protected abstract void assertClassInvariants() throws CoordinateException;
 
-    public abstract CartesianCoordinate asCartesianCoordinate() throws Exception;
+    public abstract CartesianCoordinate asCartesianCoordinate() throws CoordinateException;
 
-    public double getCartesianDistance(Coordinate coordinate) throws Exception {
+    public double getCartesianDistance(Coordinate coordinate) throws CoordinateException {
         CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
         coordinate.asCartesianCoordinate().assertClassInvariants();
         cartesianCoordinate.assertClassInvariants();
@@ -27,9 +29,9 @@ public abstract class AbstractCoordinate implements Coordinate {
         return distance;
     }
 
-    public abstract SphericCoordinate asSphericCoordinate() throws Exception;
+    public abstract SphericCoordinate asSphericCoordinate() throws CoordinateException;
 
-    public double getCentralAngle(Coordinate coordinate) throws Exception {
+    public double getCentralAngle(Coordinate coordinate) throws CoordinateException {
         SphericCoordinate sphericCoordinate = this.asSphericCoordinate();
         SphericCoordinate otherSpheric = coordinate.asSphericCoordinate();
         sphericCoordinate.assertClassInvariants();
@@ -54,4 +56,6 @@ public abstract class AbstractCoordinate implements Coordinate {
     }
 
     public abstract boolean isEqual(Coordinate other) throws Exception;
+
+    public abstract String toString();
 }

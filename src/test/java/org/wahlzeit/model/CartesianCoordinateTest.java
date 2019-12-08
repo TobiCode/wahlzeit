@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class CartesianCoordinateTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = ArithmeticException.class)
     public void compareDoublesTest() {
         CartesianCoordinate.compareDoubles(Math.sqrt(-1), 1);
     }

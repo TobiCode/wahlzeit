@@ -2,19 +2,41 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.Exceptions.CoordinateException;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class SphericCoordinate extends AbstractCoordinate {
 
+    private static HashMap<Integer, SphericCoordinate> existingCoordinates = new HashMap<>();
     private final double phi;
     private final double theta;
     private final double radius;
 
-    public SphericCoordinate(double phi, double theta, double radius) throws CoordinateException {
+    private SphericCoordinate(double phi, double theta, double radius) throws CoordinateException {
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
         this.assertClassInvariants();
+    }
+
+    public static SphericCoordinate getOrCreateCoordinate(double phi, double theta, double radius) {
+        try {
+            SphericCoordinate newSphericCoordinate = new SphericCoordinate(phi, theta, radius);
+            Integer hashCode = (Integer) newSphericCoordinate.hashCode();
+            synchronized (existingCoordinates) {
+                SphericCoordinate existingCoordinate = existingCoordinates.get(hashCode);
+                if (existingCoordinate == null) {
+                    existingCoordinates.put(newSphericCoordinate.hashCode(), newSphericCoordinate);
+                    return newSphericCoordinate;
+                } else {
+                    return existingCoordinate;
+                }
+            }
+        } catch (CoordinateException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public double getPhi() {
@@ -69,7 +91,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         double x = radius * Math.sin(Math.toRadians(theta)) * Math.cos(Math.toRadians(phi));
         double y = radius * Math.sin(Math.toRadians(theta)) * Math.sin(Math.toRadians(phi));
         double z = radius * Math.cos(Math.toRadians(theta));
-        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, z);
+        CartesianCoordinate cartesianCoordinate = CartesianCoordinate.getOrCreateCoordinate(x,y,z);
         cartesianCoordinate.assertClassInvariants();
         return cartesianCoordinate;
     }

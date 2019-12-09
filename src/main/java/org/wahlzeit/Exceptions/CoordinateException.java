@@ -8,6 +8,7 @@ public class CoordinateException extends Exception {
     Coordinate coordinate;
 
     public CoordinateException( String description, Coordinate coordinate ) {
+        super(description);
         this.description = description;
         this.coordinate = coordinate;
     }

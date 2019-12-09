@@ -21,24 +21,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
         this.assertClassInvariants();
     }
 
-    public static CartesianCoordinate getOrCreateCoordinate(double x, double y, double z) {
-        try {
-            CartesianCoordinate newCartesianCoordinate = new CartesianCoordinate(x, y, z);
-            Integer hashCode = (Integer) newCartesianCoordinate.hashCode();
-            synchronized (existingCoordinates) {
-                CartesianCoordinate cartesianCoordinate = existingCoordinates.get(hashCode);
-                if (cartesianCoordinate == null) {
-                    existingCoordinates.put(newCartesianCoordinate.hashCode(), newCartesianCoordinate);
-                    return newCartesianCoordinate;
-                } else {
-                    return cartesianCoordinate;
-                }
+    public static CartesianCoordinate getOrCreateCoordinate(double x, double y, double z) throws CoordinateException {
+        CartesianCoordinate newCartesianCoordinate = new CartesianCoordinate(x, y, z);
+        Integer hashCode = (Integer) newCartesianCoordinate.hashCode();
+        synchronized (existingCoordinates) {
+            CartesianCoordinate cartesianCoordinate = existingCoordinates.get(hashCode);
+            if (cartesianCoordinate == null) {
+                existingCoordinates.put(newCartesianCoordinate.hashCode(), newCartesianCoordinate);
+                return newCartesianCoordinate;
+            } else {
+                return cartesianCoordinate;
             }
-        } catch (CoordinateException e) {
-            e.printStackTrace();
         }
-
-        return null;
     }
 
     public double getX() {

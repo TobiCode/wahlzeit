@@ -54,7 +54,7 @@ public class FoodPhotoFactory extends PhotoFactory {
     }
 
     public FoodPhoto createPhoto(double x, double y, double z) throws CoordinateException {
-        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, z);
+        CartesianCoordinate cartesianCoordinate = CartesianCoordinate.getOrCreateCoordinate(x, y, z);
         FoodPhoto foodPhoto = new FoodPhoto();
         Location location = new Location(cartesianCoordinate);
         location.setCoordinate(cartesianCoordinate);

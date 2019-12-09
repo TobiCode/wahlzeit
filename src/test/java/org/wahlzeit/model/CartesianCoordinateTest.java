@@ -13,14 +13,14 @@ public class CartesianCoordinateTest {
 
     @Test(expected = java.lang.Exception.class)
     public void asSphericCoordinateTestWithUnvalidObjectState() throws Exception {
-        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(Math.sqrt(-1), 1, 1);
+        CartesianCoordinate cartesianCoordinate = CartesianCoordinate.getOrCreateCoordinate(Math.sqrt(-1), 1, 1);
         cartesianCoordinate.asSphericCoordinate();
     }
 
     @Test
     public void asSphericCoordinateTest() throws Exception {
         //https://matheplanet.com/default3.html?call=viewtopic.php?topic=151004&ref=https%3A%2F%2Fwww.google.com%2F
-        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(1, 1, 1);
+        CartesianCoordinate cartesianCoordinate =  CartesianCoordinate.getOrCreateCoordinate(1, 1, 1);
 
         SphericCoordinate sphericCoordinate = cartesianCoordinate.asSphericCoordinate();
 
@@ -31,8 +31,8 @@ public class CartesianCoordinateTest {
 
     @Test
     public void getDistanceTest() throws Exception {
-        CartesianCoordinate coordinate1 = new CartesianCoordinate(1, 1, 1);
-        CartesianCoordinate coordinate2 = new CartesianCoordinate(3, 3, 3);
+        CartesianCoordinate coordinate1 =  CartesianCoordinate.getOrCreateCoordinate(1, 1, 1);
+        CartesianCoordinate coordinate2 =  CartesianCoordinate.getOrCreateCoordinate(3, 3, 3);
 
         double distance = coordinate1.getCartesianDistance(coordinate2);
         double expectedDistance = Math.sqrt(12.0);
@@ -41,15 +41,15 @@ public class CartesianCoordinateTest {
 
     @Test
     public void isNotEqualTest() throws Exception {
-        CartesianCoordinate coordinate1 = new CartesianCoordinate(1, 1, 1);
-        CartesianCoordinate coordinate2 = new CartesianCoordinate(3, 3, 3);
+        CartesianCoordinate coordinate1 =  CartesianCoordinate.getOrCreateCoordinate(1, 1, 1);
+        CartesianCoordinate coordinate2 =  CartesianCoordinate.getOrCreateCoordinate(3, 3, 3);
         assertFalse(coordinate1.equals(coordinate2));
     }
 
     @Test
     public void isEqualTest() throws Exception {
-        CartesianCoordinate coordinate1 = new CartesianCoordinate(1, 1, 1);
-        CartesianCoordinate coordinate2 = new CartesianCoordinate(1, 1, 1);
+        CartesianCoordinate coordinate1 =  CartesianCoordinate.getOrCreateCoordinate(1, 1, 1);
+        CartesianCoordinate coordinate2 =  CartesianCoordinate.getOrCreateCoordinate(1, 1, 1);
         assertTrue(coordinate1.equals(coordinate2));
     }
 

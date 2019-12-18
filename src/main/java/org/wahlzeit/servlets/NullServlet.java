@@ -20,6 +20,8 @@
 
 package org.wahlzeit.servlets;
 
+import org.wahlzeit.utils.DesignPatternInstance;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,10 @@ import java.io.IOException;
 /**
  * A null servlet.
  */
+@DesignPatternInstance(
+		patternNames = {"Null Object Pattern"},
+		participants = {"Null Object"}
+)
 public class NullServlet extends AbstractServlet {
 
 	/**

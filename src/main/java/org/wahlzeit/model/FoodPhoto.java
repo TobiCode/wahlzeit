@@ -1,5 +1,11 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.DesignPatternInstance;
+
+@DesignPatternInstance(
+        patternNames = {"Abstract Factory"},
+        participants = {"ConcreteProduct"}
+)
 public class FoodPhoto extends Photo {
 
     private String originOfTheFood;

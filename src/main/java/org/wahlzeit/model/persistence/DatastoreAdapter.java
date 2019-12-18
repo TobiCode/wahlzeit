@@ -28,6 +28,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.OfyService;
+import org.wahlzeit.utils.DesignPatternInstance;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,6 +40,10 @@ import java.util.logging.Logger;
  * 
  * @review
  */
+@DesignPatternInstance(
+		patternNames = {"Template Method Pattern"},
+		participants = {"Concrete Class with implemented hook method"}
+)
 public class DatastoreAdapter extends ImageStorage {
 
 	private static final Logger log = Logger.getLogger(DatastoreAdapter.class.getName());

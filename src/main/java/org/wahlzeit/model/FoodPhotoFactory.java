@@ -2,9 +2,13 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.Exceptions.CoordinateException;
 import org.wahlzeit.services.LogBuilder;
+import org.wahlzeit.utils.DesignPatternInstance;
 
 import java.util.logging.Logger;
-
+@DesignPatternInstance(
+        patternNames = {"Abstract Factory"},
+        participants ={"Concrete Factory"}
+)
 public class FoodPhotoFactory extends PhotoFactory {
 
 

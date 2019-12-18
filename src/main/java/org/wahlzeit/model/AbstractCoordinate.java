@@ -1,7 +1,12 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.Exceptions.CoordinateException;
+import org.wahlzeit.utils.DesignPatternInstance;
 
+@DesignPatternInstance(
+        patternNames = "Template Method Pattern",
+        participants = {"AbstractClass with abstract methods"}
+)
 public abstract class AbstractCoordinate implements Coordinate {
 
     protected static final double PRECISION = 0.0001;

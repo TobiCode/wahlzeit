@@ -1,10 +1,15 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.Exceptions.CoordinateException;
+import org.wahlzeit.utils.DesignPatternInstance;
 
 import java.util.HashMap;
 import java.util.Objects;
 
+@DesignPatternInstance(
+        patternNames = "Template Method Pattern",
+        participants = {"Concrete Class with hook methods"}
+)
 public class CartesianCoordinate extends AbstractCoordinate {
 
 

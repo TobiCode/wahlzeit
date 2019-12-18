@@ -119,6 +119,10 @@ public class DatastoreAdapter extends ImageStorage {
 	 * 
  	 * @review
 	 */
+	@DesignPatternInstance(
+			patternNames = "Adapter Pattern",
+			participants = {"Adapter class"}
+	)
 	@Entity
 	public static class ImageWrapper {
 

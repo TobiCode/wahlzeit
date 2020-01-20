@@ -8,6 +8,16 @@ import org.wahlzeit.utils.DesignPatternInstance;
 )
 public class FoodPhoto extends Photo {
 
+    private Food food;
+
+    public Food getFood() {
+        return food;
+    }
+
+    public void setFood(Food food) {
+        this.food = food;
+    }
+
     private String originOfTheFood;
     private String nameOfTheFood;
     private boolean isSpicy;

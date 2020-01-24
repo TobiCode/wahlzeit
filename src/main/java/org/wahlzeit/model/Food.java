@@ -1,7 +1,22 @@
 package org.wahlzeit.model;
 
 import java.util.ArrayList;
+/*
+How is object created? Bottom Up Explanation how the object is created:
+The Food object can be directly instantiated with its constructor. You just have to pass a name and a FoodType as
+parameters for the constructor. I have not written a Manager Object for creating a Fodd Object, because in my opinion
+it was not necessary.
 
+The object creation described in the solution space:
+1. Delegation of object creation: N/A
+2. Selection of concrete class: on-the-spot
+3. Configuration of class mapping: N/A
+4. Instantiation of concrete class: in-code
+5. Initialization of new object: default with constructor and the possibility to set attributes afterwards
+    through various setters.
+6. Building of object structure: default
+
+ */
 public class Food {
 
     public boolean vegetarian;
@@ -11,10 +26,6 @@ public class Food {
     String name;
     ArrayList<String> ingredients;
     int caloriesRounded;
-
-    public Food(String name) {
-        this.name = name;
-    }
 
     public Food(FoodType foodtype, String name) {
         this.foodtype = foodtype;
